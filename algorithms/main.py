@@ -15,10 +15,14 @@ if __name__ == '__main__':
 
     matrix_graph = AdjacencyMatrixGraph(is_directed=True, vertex_number=4)
 
-    matrix_graph.add_edge(2, 1)
-    matrix_graph.add_edge(2, 3)
-    matrix_graph.add_edge(2, 4)
+    matrix_graph.add_edge(1, 2)
     matrix_graph.add_edge(3, 2)
-    matrix_graph.add_edge(4, 3)
+    matrix_graph.add_edge(4, 2)
+    matrix_graph.add_edge(2, 3)
+    matrix_graph.add_edge(3, 4)
 
     print(matrix_graph)
+
+    list_graph.breadth_first_search(2)
+    print("\n--------------")
+    matrix_graph.depth_first_search(0)

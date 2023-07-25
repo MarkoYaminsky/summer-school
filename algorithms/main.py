@@ -26,3 +26,7 @@ if __name__ == '__main__':
     list_graph.breadth_first_search(2)
     print("\n--------------")
     matrix_graph.depth_first_search(0)
+    print("\n--------------")
+    print(list_graph.is_acyclic)
+    # print("\n--------------")
+    # print(list_graph.topological_sort())

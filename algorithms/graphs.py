@@ -28,6 +28,48 @@ class AdjacencyListGraph(Graph):
         if vertex not in self.data:
             self.data[vertex] = []
 
+    @property
+    def vertices(self):
+        return self.data.keys()
+
+    @property
+    def is_acyclic(self):
+        if not self.is_directed:
+            return False
+        visited_vertices = set()
+        for vertex in self.vertices:
+            if vertex in visited_vertices:
+                continue
+            visited_in_one_going = set()
+            stack = [vertex]
+            while stack:
+                current_vertex = stack.pop()
+                visited_vertices.add(current_vertex)
+                visited_in_one_going.add(current_vertex)
+                for neighbour in self.get_neighbours(current_vertex):
+                    if neighbour in visited_in_one_going:
+                        return False
+                    if neighbour not in visited_vertices:
+                        stack.append(neighbour)
+        return True
+
+    def _topological_sort_helper(self, vertex, visited, sorted_graph):
+        visited.add(vertex)
+        for neighbour in self.get_neighbours(vertex):
+            if neighbour not in visited:
+                self._topological_sort_helper(neighbour, visited, sorted_graph)
+        sorted_graph.append(vertex)
+
+    def topological_sort(self):
+        if not self.is_acyclic:
+            raise Exception("Can perform topological sort only in DAG.")
+        visited_vertices = set()
+        sorted_graph = []
+        for vertex in self.vertices:
+            if vertex not in visited_vertices:
+                self._topological_sort_helper(vertex, visited_vertices, sorted_graph)
+        return sorted_graph
+
     def add_edge(self, source, to):
         try:
             self.data[source].append(to)

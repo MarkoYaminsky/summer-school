@@ -1,4 +1,7 @@
 .idea/
 venv/
 .DS_Store
+db/
 **/__pycache__/
+.env
+
